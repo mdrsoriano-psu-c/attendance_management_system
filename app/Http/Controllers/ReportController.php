@@ -46,12 +46,18 @@ class ReportController extends Controller
 
     public function importStudents(Request $request)
     {
-        $request->validate([
-            'class_id' => 'nullable|exists:class_models,id',
-            'file' => 'required|file|mimes:csv,txt|max:4096',
-        ]);
+       $request->validate([
+    'class_id' => 'nullable|exists:class_models,id',
+    'file' => 'required|file|max:4096',
+]);
 
-        $handle = fopen($request->file('file')->getRealPath(), 'r');
+        $uploadedFile = $request->file('file');
+
+if (!$uploadedFile || !$uploadedFile->isValid()) {
+    return back()->withErrors(['file' => 'The uploaded file is invalid. Please try again.']);
+}
+
+$handle = fopen($uploadedFile->getPathname(), 'r');
         $header = fgetcsv($handle);
         $count = 0;
 
