@@ -1,107 +1,194 @@
 # Student Attendance Management System
 
 ## Project Description
-A Laravel-based Student Attendance Management System for managing classes, students, QR attendance, attendance records, reports, imports, exports, and RESTful API testing through Postman.
+
+The **Student Attendance Management System** is a Laravel-based web application designed to help teachers and administrators manage classes, students, attendance records, QR attendance, and reports in one workspace.
+
+The system allows authorized users to create classes, register students, record attendance manually or through QR scanning, view attendance analytics, import student data, export reports, and test RESTful API endpoints using Postman.
 
 ## Developers
-- Cristopherson Domantay
-- Add group member name here
-- Add group member name here
+
+* Mica Danielle Soriano
+* Kristine Mae Peralta
+* Maricris Panuyas
+* Mary Rose Purungganan
 
 ## Main Features
-### Authentication
-- Login
-- Logout
-- Session handling
-- Password hashing through Laravel authentication
+
+### Authentication System
+
+* User login
+* User logout
+* Session handling
+* Password hashing
+* Guest and authenticated route protection
 
 ### Teacher/Admin Module
-- Dashboard with attendance analytics
-- Create, read, update, and delete classes
-- Create, read, update, and delete students
-- Assign students to classes
-- Record attendance manually
-- Use QR attendance scanner page
-- Generate attendance reports
-- Import students using CSV
-- Export reports as PDF, XLSX, CSV, and JSON
+
+* Dashboard with attendance statistics
+* Create, read, update, and delete classes
+* Create, read, update, and delete students
+* Assign students to classes
+* Record attendance manually
+* Use QR attendance scanner
+* View student QR/profile pages
+* Generate attendance reports
+* Import students using CSV
+* Export reports as PDF, XLSX, CSV, and JSON
 
 ### Student/User Module
-- Login/logout
-- View attendance dashboard and attendance records
+
+* Login and logout
+* View student profile through QR code
+* View attendance-related records and information
+
+## Technologies Used
+
+* Laravel
+* PHP
+* Blade Templates
+* Laravel Breeze Authentication
+* Laravel Sanctum
+* Eloquent ORM
+* MySQL / SQLite
+* HTML
+* CSS
+* JavaScript
+* Vite
+* Tailwind CSS
+* Git and GitHub
+* Railway Deployment
 
 ## Laravel Requirements Mapping
-| Requirement | Where Used |
-|---|---|
-| Routing | `routes/web.php`, `routes/api.php` |
-| Middleware | `auth`, `guest`, `admin` middleware groups/routes |
-| Sessions | Laravel login/logout session handling |
-| Authentication | Laravel Breeze auth pages |
-| Blade Templates | Dashboard, classes, students, attendance, reports pages |
-| Master Layout | `resources/views/components/layout.blade.php` using `<x-layout>` |
-| Navigation Component | `resources/views/components/nav-link.blade.php` using `<x-nav-link>` |
-| Resource Controllers | `ClassController`, `StudentController`, `AttendanceController` |
-| Eloquent ORM | Models: `User`, `ClassModel`, `Student`, `Attendance` |
-| Relationships | Teacher has many classes, class has many students, attendance belongs to student/class |
-| REST API | `GET`, `POST`, `PUT/PATCH`, `DELETE` attendance endpoints |
-| Migrations | Database table schema under `database/migrations` |
-| Forms | Create/edit forms for classes, students, attendance, import |
-| Reports | PDF, XLSX, CSV, JSON export |
-| Import/Export | CSV student import and report export |
-| GitHub | Push repository with proper commits and collaborators |
-| Deployment | Render-ready Dockerfile included |
+
+| Requirement          | Implementation                                                                                      |
+| -------------------- | --------------------------------------------------------------------------------------------------- |
+| Authentication       | Laravel Breeze login/logout                                                                         |
+| Session Handling     | Laravel web session authentication                                                                  |
+| Password Hashing     | Laravel hashed password handling                                                                    |
+| Controllers          | `ClassController`, `StudentController`, `AttendanceController`, `ReportController`, API controllers |
+| Models               | `User`, `ClassModel`, `Student`, `Attendance`                                                       |
+| Migrations           | Database migrations inside `database/migrations`                                                    |
+| Resource Controllers | Resource routes for classes, students, and attendance                                               |
+| Blade Templates      | Dashboard, classes, students, attendance, reports, auth pages                                       |
+| Master Layout        | `resources/views/components/layout.blade.php`                                                       |
+| Navigation Component | `resources/views/components/nav-link.blade.php`                                                     |
+| Middleware           | `auth`, `guest`, `verified`, and `admin` middleware                                                 |
+| Route Groups         | Authenticated route group and admin-only route group                                                |
+| Relationships        | User/teacher, classes, students, and attendance relationships                                       |
+| RESTful API          | API endpoints for login, attendance, user info, and logout                                          |
+| Reports              | Attendance reports with multiple export formats                                                     |
+| Import/Export        | CSV import and PDF/XLSX/CSV/JSON export                                                             |
+| Deployment           | Railway deployment                                                                                  |
+| Version Control      | GitHub repository                                                                                   |
 
 ## Database Tables
-- `users`
-- `class_models`
-- `students`
-- `attendances`
-- `personal_access_tokens`
-- Laravel system tables: `sessions`, `cache`, `jobs`
 
-## Relationships
-- User/Teacher has many classes
-- Class belongs to teacher
-- Class has many students
-- Student belongs to class
-- Student has many attendance records
-- Attendance belongs to student
-- Attendance belongs to class
+The system uses the following main tables:
 
-## Default Accounts After Seeding
-### Admin/Teacher
-- Email: `admin@example.com`
-- Password: `password`
+* `users`
+* `class_models`
+* `students`
+* `attendances`
+* `personal_access_tokens`
 
-### Student/User
-- Email: `student@example.com`
-- Password: `password`
+Laravel also includes system tables such as:
 
-## Installation / Setup Instructions
-```bash
-composer install
-npm install
-cp .env.example .env
-php artisan key:generate
-php artisan migrate:fresh --seed
-npm run build
-php artisan serve
+* `sessions`
+* `cache`
+* `jobs`
+
+## Database Relationships
+
+* A user/teacher can have many classes.
+* A class belongs to a teacher.
+* A class has many students.
+* A student belongs to a class.
+* A student has many attendance records.
+* An attendance record belongs to a student.
+* An attendance record belongs to a class.
+
+## CRUD Operations
+
+The system includes full CRUD operations for the following modules:
+
+### Classes
+
+* Create class
+* View class list
+* Update class details
+* Delete class
+
+### Students
+
+* Create student
+* View student list
+* Update student details
+* Delete student
+
+### Attendance
+
+* Create attendance record
+* View attendance history
+* Update attendance record
+* Delete attendance record
+
+## Middleware Protection
+
+The system protects routes using Laravel middleware.
+
+### Authenticated Routes
+
+Only logged-in users can access:
+
+* Dashboard
+* Attendance records
+* Attendance scanner
+* Reports
+* Profile management
+
+### Admin Routes
+
+Only admin users can access:
+
+* Class management
+* Student management
+
+## RESTful API Endpoints
+
+The system includes REST API routes for attendance management.
+
+### Public API Routes
+
+```http
+POST /api/login
+GET /api/attendance
 ```
 
-Open the system:
-```text
-http://127.0.0.1:8000
+### Protected API Routes
+
+These routes require a Sanctum Bearer Token.
+
+```http
+GET /api/me
+POST /api/logout
+POST /api/attendance
+GET /api/attendance/{attendance}
+PUT /api/attendance/{attendance}
+PATCH /api/attendance/{attendance}
+DELETE /api/attendance/{attendance}
 ```
 
-## REST API Testing in Postman
-Use the seeded admin account to get a token first.
+## API Testing Using Postman
 
 ### 1. Login and Get Token
+
 ```http
 POST /api/login
 ```
 
-Body → raw JSON:
+Body:
+
 ```json
 {
   "email": "admin@example.com",
@@ -109,19 +196,22 @@ Body → raw JSON:
 }
 ```
 
-Copy the returned token. In Postman, go to Authorization → Bearer Token → paste the token.
+Copy the returned token and use it as a Bearer Token in Postman.
 
 ### 2. Get Attendance Records
+
 ```http
 GET /api/attendance
 ```
 
 ### 3. Create Attendance Record
+
 ```http
 POST /api/attendance
 ```
 
-Body → raw JSON:
+Body:
+
 ```json
 {
   "class_id": 1,
@@ -132,11 +222,13 @@ Body → raw JSON:
 ```
 
 ### 4. Update Attendance Record
+
 ```http
 PUT /api/attendance/1
 ```
 
-Body → raw JSON:
+Body:
+
 ```json
 {
   "class_id": 1,
@@ -147,22 +239,32 @@ Body → raw JSON:
 ```
 
 ### 5. Delete Attendance Record
+
 ```http
 DELETE /api/attendance/1
 ```
 
-### 6. Logout Token
+### 6. Logout API Token
+
 ```http
 POST /api/logout
 ```
 
-## Report Export Links
-After login, open:
+## Report Generation
+
+The system includes auto-generated attendance reports.
+
+Available report formats:
+
 ```text
-/reports
+PDF
+XLSX
+CSV
+JSON
 ```
 
-Available exports:
+Report export links:
+
 ```text
 /reports/export/pdf
 /reports/export/xlsx
@@ -171,86 +273,213 @@ Available exports:
 ```
 
 ## CSV Import Format
+
+The system supports importing students through CSV.
+
 Go to:
+
 ```text
 /reports/import
 ```
 
 Required CSV headers:
+
 ```csv
 name,email
-Juan Dela Cruz,juan@example.com
-Maria Santos,maria@example.com
+Mica Danielle Soriano,micasoriano@gmail.com
+Kristine Peralta,tineperalta@gmail.com
+Maricris Panuyas,crispanuyas@gmail.com
+Mary Rose Purungganan,rosepurungganan@gmail.com
 ```
 
-Optional headers:
+Recommended CSV format:
+
 ```csv
 name,email,qr_code,class_id
-Pedro Reyes,pedro@example.com,SAMPLE-QR-001,1
+Mica Danielle Soriano,micasoriano@gmail.com,QR001,1
+Kristine Peralta,tineperalta@gmail.com,QR002,1
+Maricris Panuyas,crispanuyas@gmail.com,QR003,2
 ```
 
-## Deployment Notes
-This project includes:
-- `Dockerfile`
-- `docker/apache.conf`
-- `.dockerignore`
+## Default Accounts After Seeding
 
-For Render, use Docker deployment and set environment variables such as:
+### Admin Account
+
+```text
+Email: admin@example.com
+Password: password
+```
+
+### Student Account
+
+```text
+Email: student@example.com
+Password: password
+```
+
+## Installation and Setup Instructions
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/mdrsoriano-psu-c/attendance_management_system.git
+cd attendance_management_system
+```
+
+### 2. Install PHP Dependencies
+
+```bash
+composer install
+```
+
+### 3. Install Node Dependencies
+
+```bash
+npm install
+```
+
+### 4. Create Environment File
+
+```bash
+cp .env.example .env
+```
+
+For Windows PowerShell:
+
+```powershell
+copy .env.example .env
+```
+
+### 5. Generate Application Key
+
+```bash
+php artisan key:generate
+```
+
+### 6. Configure Database
+
+Update the `.env` file depending on the database being used.
+
+Example for MySQL:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=attendance_system
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+### 7. Run Migrations and Seeders
+
+```bash
+php artisan migrate:fresh --seed
+```
+
+### 8. Build Frontend Assets
+
+```bash
+npm run build
+```
+
+### 9. Start the Development Server
+
+```bash
+php artisan serve
+```
+
+Open the system in the browser:
+
+```text
+http://127.0.0.1:8000
+```
+
+## Deployment
+
+The system is deployed online using Railway.
+
+Hosting link:
+
+```text
+https://soothing-adaptation-production.up.railway.app
+```
+
+## Railway Environment Variables
+
+Example Railway variables:
+
 ```env
 APP_NAME="Attendance System"
 APP_ENV=production
 APP_DEBUG=false
 APP_URL=https://soothing-adaptation-production.up.railway.app
+
+LOG_CHANNEL=stderr
+LOG_LEVEL=debug
+
 DB_CONNECTION=mysql
-DB_DATABASE=/var/www/html/database/database.sqlite
+DB_HOST=${{MySQL.MYSQLHOST}}
+DB_PORT=${{MySQL.MYSQLPORT}}
+DB_DATABASE=${{MySQL.MYSQLDATABASE}}
+DB_USERNAME=${{MySQL.MYSQLUSER}}
+DB_PASSWORD=${{MySQL.MYSQLPASSWORD}}
+
+SESSION_DRIVER=file
+CACHE_STORE=file
+QUEUE_CONNECTION=database
+FILESYSTEM_DISK=local
+PORT=8080
 ```
 
-Do not commit:
-- `.env`
-- `vendor/`
-- `node_modules/`
-- `database/database.sqlite`
+## GitHub Repository
 
-## Hosting Link
-Add deployed link here:
-```text
-https://your-hosting-link-here
-```
-
-## QR Student Profile + Analytics Update
-
-This version includes:
-- Student QR card generation
-- QR scanner page with camera support
-- Scanning a QR opens the student profile
-- Student profile shows attendance analytics
-- Dashboard analytics with charts and top students
-
-### How to use QR feature
-1. Login as admin.
-2. Go to **Students**.
-3. Click **QR Card** for any student.
-4. Print or open the QR card.
-5. Go to **Dashboard → Open Scanner**.
-6. Scan the QR code.
-7. The student profile appears and attendance can be marked present.
-
-### Important note for camera scanner
-The camera scanner uses browser camera permission. If camera does not open, allow camera permission in Chrome. Manual scanner input still works by pasting the QR value or using a USB barcode scanner.
-
-
-## Attendance Page vs API
-
-Use this for the normal browser page:
+Repository link:
 
 ```text
-http://127.0.0.1:8000/attendance
+https://github.com/mdrsoriano-psu-c/attendance_management_system
 ```
 
-If you accidentally open this API URL in the browser, the system redirects you to the styled Attendance History page:
+## GitHub and Collaboration
+
+The project is pushed to GitHub and should show regular commits from the developers. All group members should be added as collaborators or contributors in the repository.
+
+Recommended Git commands:
+
+```bash
+git add .
+git commit -m "Update attendance management system"
+git push origin main
+```
+
+## Important Files and Folders
 
 ```text
-http://127.0.0.1:8000/api/attendance
+app/Http/Controllers
+app/Models
+database/migrations
+database/seeders
+resources/views
+resources/views/components
+routes/web.php
+routes/api.php
+Dockerfile
+README.md
 ```
 
-For Postman/API testing, send the request with `Accept: application/json`.
+## Security Notes
+
+Do not commit the following files and folders to GitHub:
+
+```text
+.env
+vendor/
+node_modules/
+database/database.sqlite
+```
+
+The `.env` file contains sensitive configuration such as database credentials and application keys.
+
+## Summary
+
+The Student Attendance Management System demonstrates the required Laravel final project concepts, including authentication, session handling, password hashing, CRUD operations, database migrations, Eloquent relationships, Blade templates, layout components, middleware protection, route groups, RESTful API endpoints, report generation, import/export features, GitHub version control, and Railway deployment.
