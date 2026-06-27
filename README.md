@@ -200,8 +200,8 @@ For Render, use Docker deployment and set environment variables such as:
 APP_NAME="Attendance System"
 APP_ENV=production
 APP_DEBUG=false
-APP_URL=https://your-render-link.onrender.com
-DB_CONNECTION=sqlite
+APP_URL=https://soothing-adaptation-production.up.railway.app
+DB_CONNECTION=mysql
 DB_DATABASE=/var/www/html/database/database.sqlite
 ```
 
