@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600,700,800,900&display=swap" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="font-sans bg-[#070316] text-white">
     <main class="min-h-screen flex items-center justify-center px-6 bg-[radial-gradient(circle_at_top_left,_rgba(147,51,234,.28),_transparent_35%),linear-gradient(135deg,#070316_0%,#11031f_55%,#200323_100%)]">
