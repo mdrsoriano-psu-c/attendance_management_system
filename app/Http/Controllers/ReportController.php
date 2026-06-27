@@ -129,9 +129,16 @@ $handle = fopen($uploadedFile->getPathname(), 'r');
 
     private function xlsx(array $rows, string $fileName)
     {
-        $tmp = tempnam(sys_get_temp_dir(), 'xlsx');
-        $zip = new \ZipArchive();
-        $zip->open($tmp, \ZipArchive::OVERWRITE);
+        $tmpDir = storage_path('app/temp');
+
+if (!is_dir($tmpDir)) {
+    mkdir($tmpDir, 0777, true);
+}
+
+$tmp = $tmpDir . DIRECTORY_SEPARATOR . uniqid('xlsx_', true) . '.xlsx';
+
+$zip = new \ZipArchive();
+$zip->open($tmp, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
 
         $sheetRows = [];
         $headers = $rows ? array_keys($rows[0]) : ['ID', 'Date', 'Class', 'Student', 'Email', 'Status'];
