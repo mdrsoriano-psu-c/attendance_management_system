@@ -25,8 +25,8 @@ RUN apt-get update && apt-get install -y \
     libfreetype6-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install pdo_mysql pdo_sqlite zip intl dom gd \
-    && a2dismod mpm_event || true \
-    && a2dismod mpm_worker || true \
+    && rm -f /etc/apache2/mods-enabled/mpm_*.load \
+    && rm -f /etc/apache2/mods-enabled/mpm_*.conf \
     && a2enmod mpm_prefork \
     && a2enmod rewrite \
     && rm -rf /var/lib/apt/lists/*
@@ -40,7 +40,7 @@ RUN rm -f public/hot
 COPY --from=frontend /app/public/build /var/www/html/public/build
 
 RUN COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader --no-interaction \
-    && mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views bootstrap/cache database \
+    && mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views bootstrap/cache database storage/app/temp \
     && touch database/database.sqlite \
     && chown -R www-data:www-data storage bootstrap/cache database \
     && chmod -R 775 storage bootstrap/cache database
